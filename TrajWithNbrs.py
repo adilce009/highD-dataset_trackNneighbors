@@ -85,7 +85,6 @@ def get_dataset():
 
     return tracks, static_info
 
-# prepare a build_input() function
 
 tracks, static_info = get_dataset()
 
@@ -123,20 +122,11 @@ def get_input_vector(tracks):
 
         #inp_v = np.vstack((inp_v, np.zeros((48, inp_v.size)))) # 8 neighboring vehicles * number of features for each neighbor(=6)
 
-        '''
+       
         # build preceding_nbr feature table
-        preceding_nbr_features = np.zeros((num_neighbor_features, inp_v.shape[1]))
-        for i in range(preceding_nbr.shape[0]):   # or inp_v.shape[1]
-            if preceding_nbr[i] != 0:
-                track_ID = preceding_nbr[i] - 1
-                nt = tracks[track_ID]     # array index starts at 0, so is the index of tracks. e.g. tracks of ID 12 is available in tracks[11]
-
-                preceding_nbr_features[:,i] = np.array((nt['center_x'][i-1], nt['center_y'][i-1], nt['xVelocity'][i-1], nt['yVelocity'][i-1], nt['xAcceleration'][i-1], nt['yAcceleration'][i-1])).transpose()
-        fill_inp_v_start = num_agent_features
-        fill_inp_v_end = num_agent_features + 6
-        inp_v[fill_inp_v_start:fill_inp_v_end] = preceding_nbr_features
-        '''
-        ## another way
+        
+        
+       
         preceding_nbr_features = np.zeros((num_neighbor_features, inp_v.shape[1])) # inp_v.shape[1] : length of trajectory/track of the agent
         unique_nbr = np.unique(preceding_nbr) # list of preceding neighbors throughout the track
         unique_nbr_indices = [] # list the indices at which the unique neighbors appears
